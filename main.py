@@ -6,13 +6,18 @@ from sklearn.tree import DecisionTreeClassifier
 from numpy import genfromtxt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-
 from diversified_classifier import DiversifiedClassifier
+from standard_classifier import StandardClassifier
+
 
 for i in range(1, 11):
     data = genfromtxt('./data/classification_%d.csv' % i, delimiter=",")
 
-    d_clf = DiversifiedClassifier()
-    k_clf = KNeighborsClassifier()
-    preds = d_clf.predict(data, k_clf, 3)
-    print(preds)
+    std_clf = StandardClassifier(KNeighborsClassifier())
+    div_clf = DiversifiedClassifier(KNeighborsClassifier(), 3)
+
+    print(std_clf.predict(data))
+    print(div_clf.predict(data))
+
+
+
