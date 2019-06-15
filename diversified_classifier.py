@@ -64,6 +64,7 @@ class DiversifiedClassifier:
             for k, vector in enumerate(prediction_vectors): #for each vector
                 if len(vector) > 0:
                     prediction, vector = vector[0], vector[1:]  # pop first element
+                    prediction_vectors[k] = vector
                     if prediction in decision_data_sets[i].class_occurrence:  # check if class is in class occurrence
                         decision_data_sets[i].class_occurrence[prediction] += 1
                     else:

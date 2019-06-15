@@ -9,6 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from diversified_classifier import DiversifiedClassifier
 
 n_splits = 5  # configure n of folds
+
 div_clf = DiversifiedClassifier(KNeighborsClassifier(), n_splits)
 std_clf = KNeighborsClassifier()
 for i in range(1, 11):
@@ -24,11 +25,10 @@ for i in range(1, 11):
         X_test, y_test = X[test_index], y[test_index]
 
         div_clf.fit(X_train, y_train)
-        div_preds.append( div_clf.predict(X_test))
-
+        div_preds.append(div_clf.predict(X_test))
 
         std_clf.fit(X_train, y_train)
-        std_preds.append( std_clf.predict(X_test))
+        std_preds.append(std_clf.predict(X_test))
 
     std_pred = concatenate(std_preds, axis=0)
     div_pred = concatenate(div_preds, axis=0)
@@ -36,4 +36,6 @@ for i in range(1, 11):
     div_score = precision_score(y, div_pred, average='micro')
     std_score = precision_score(y, std_pred, average='micro')
 
-    print(f'Dataset: {i}. \n STD precisions score:{std_score} \n DIV Precision Score:{div_score}\n')
+
+    print('\n')
+    print(f'Dataset: {i}. \n STD precisions score:{std_score} \n DIV Precision Score: {div_score}\n')
