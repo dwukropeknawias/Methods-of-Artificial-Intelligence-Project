@@ -5,13 +5,18 @@ from numpy import concatenate
 from sklearn.metrics import precision_score
 from sklearn.model_selection import KFold
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
 
 from diversified_classifier import DiversifiedClassifier
 
 n_splits = 5  # configure n of folds
 
-div_clf = DiversifiedClassifier(KNeighborsClassifier(), n_splits)
 std_clf = KNeighborsClassifier()
+#std_clf = DecisionTreeClassifier()
+#std_clf = GaussianNB()
+div_clf = DiversifiedClassifier(std_clf, n_splits)
+
 for i in range(1, 11):
     data = genfromtxt('./data/classification_%d.csv' % i, delimiter=",")
     X = data[:, :-1]
